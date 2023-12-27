@@ -2,6 +2,7 @@ package com.example.f3.service.Impl;
 
 import com.example.f3.contract.HospitalCases;
 import com.example.f3.entity.Cases;
+import com.example.f3.properties.ConfigProperties;
 import com.example.f3.service.CasesService;
 import com.example.f3.service.Impl.CommonServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class CasesServiceImpl implements CasesService {
      * @throws ContractException
      */
     public String addCases(Cases cases) throws Exception {
-        HospitalCases hospitalCases = commonService.init();
+        HospitalCases hospitalCases = commonService.init(HospitalCases.class, ConfigProperties.CasesContract,ConfigProperties.pemAccountFilePath);
         TransactionReceipt transactionReceipt = hospitalCases.addCases(cases.get_patient(), cases.get_appointmentType(),
                 cases.get_appointmentTime(), cases.get_description(), cases.get_prescription(), cases.get_money());
 
@@ -40,7 +41,7 @@ public class CasesServiceImpl implements CasesService {
 //        return casesDynamicArray;
 //    }
     public List<HospitalCases.Struct2> query(String address) throws Exception {
-        HospitalCases hospitalCases = commonService.init();
+        HospitalCases hospitalCases = commonService.init(HospitalCases.class, ConfigProperties.CasesContract,ConfigProperties.pemAccountFilePath);
         DynamicArray<HospitalCases.Struct2> list = hospitalCases.queryCases(address);
         List<HospitalCases.Struct2> value = list.getValue();
         return value;

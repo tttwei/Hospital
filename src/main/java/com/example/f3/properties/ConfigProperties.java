@@ -8,10 +8,12 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties (prefix = "fisco.config")
 @Data
 public class ConfigProperties {
-    private String contractAddress;
-    private String peers;
-    private String SDKFile;
-    private String pemAccountFilePath;
+    public static String doctorContract;
+    public static String patientContract;
+    public static String CasesContract;
+    public static String peers;
+    public static String SDKFile;
+    public static String pemAccountFilePath;
 
 
 }

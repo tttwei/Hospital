@@ -1,6 +1,6 @@
 package com.example.f3.controller;
 
-import com.example.f3.contract.HospitalCases;
+import com.example.f3.contract.Doctor;
 import com.example.f3.entity.DoctorInfo;
 import com.example.f3.entity.R;
 import com.example.f3.service.DoctorService;
@@ -28,8 +28,8 @@ public class DoctorController {
         return R.success();
     }
     @GetMapping
-    public R<HospitalCases.Struct0> query(String address) throws Exception {
-        HospitalCases.Struct0 doctorInfo = doctorService.query(address);
+    public R<Doctor.Struct0> query(String address) throws Exception {
+        Doctor.Struct0 doctorInfo = doctorService.query(address);
         return R.success(doctorInfo);
     }
     @DeleteMapping("/{addr}")

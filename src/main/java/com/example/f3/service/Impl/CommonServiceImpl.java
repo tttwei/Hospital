@@ -14,15 +14,12 @@ public class CommonServiceImpl {
 
     @Autowired
     private BcosSDK bcosSDK;
-    @Autowired
-    private ConfigProperties configProperties;
 
 
-    public HospitalCases init() throws Exception {
-        String contractAddress = configProperties.getContractAddress();
-        String pemPath = configProperties.getPemAccountFilePath();
-        HospitalCases hospitalCases = ContractUtil.contractLoad(bcosSDK,contractAddress,pemPath,HospitalCases.class);
-        return hospitalCases;
+
+    public  <T> T init(Class<T> c,String contractAddress,String pemPath)  throws Exception {
+        T contract = ContractUtil.contractLoad(bcosSDK,contractAddress,pemPath,c);
+        return contract;
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.f3.controller;
 
 import com.example.f3.contract.HospitalCases;
+import com.example.f3.contract.Patient;
 import com.example.f3.entity.PatientInfo;
 import com.example.f3.entity.R;
 import com.example.f3.service.PatientService;
@@ -25,8 +26,8 @@ public class PatientController {
     }
 
     @GetMapping
-    public R<HospitalCases.Struct1> query(String address) throws Exception {
-        HospitalCases.Struct1 patient = patientService.query(address);
+    public R<Patient.Struct0> query(String address) throws Exception {
+        Patient.Struct0 patient = patientService.query(address);
         return R.success(patient);
     }
 }
