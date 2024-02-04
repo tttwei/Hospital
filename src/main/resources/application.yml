@@ -6,5 +6,5 @@ fisco:
     patientContract: ""
 
     peers: "192.168.85.173:20200"
-    SDKFile: "C:/code/fiscoProject/f3/src/main/resources/conf"
-    pemAccountFilePath: "C:/code/fiscoProject/f3/src/main/resources/pem/0xf0c0b42c2b297d90ac89b3cecddda103f94efa81.pem"
+#    SDKFile: "classpath:static/conf"
+    pemAccountFilePath: "static/pem/0xf0c0b42c2b297d90ac89b3cecddda103f94efa81.pem"

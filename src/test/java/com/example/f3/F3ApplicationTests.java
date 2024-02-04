@@ -7,11 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class F3ApplicationTests {
 
-//    @Test
-//    void contextLoads() {
-//        HospitalCases.DoctorInfo doctorInfo = new HospitalCases.DoctorInfo();
-//
-//
-//    }
+    @Test
+    void contextLoads() {
+
+
+    }
 
 }

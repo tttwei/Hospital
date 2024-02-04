@@ -14,8 +14,10 @@ import org.springframework.stereotype.Component;
 public class PatientServiceImpl implements PatientService {
     @Autowired
     private CommonServiceImpl commonService;
+    @Autowired
+    private ConfigProperties properties;
     public String addPatient(String address,PatientInfo doctorInfo) throws Exception {
-        Patient patient = commonService.init(Patient.class, ConfigProperties.doctorContract,ConfigProperties.pemAccountFilePath);
+        Patient patient = commonService.init(Patient.class, properties.getPatientContract(),properties.getPemAccountFilePath());
         TransactionReceipt transactionReceipt;
         if (address==null||address.equals("")){
             transactionReceipt = patient.addPatient(doctorInfo.name,doctorInfo.sex,doctorInfo.sex,doctorInfo.dataBirth);
@@ -26,7 +28,7 @@ public class PatientServiceImpl implements PatientService {
         return transactionReceipt.getStatus();
     }
     public String updatePatient(String address,PatientInfo doctorInfo) throws Exception {
-        Patient patient = commonService.init(Patient.class, ConfigProperties.doctorContract,ConfigProperties.pemAccountFilePath);
+        Patient patient = commonService.init(Patient.class, properties.getPatientContract(),properties.getPemAccountFilePath());
         TransactionReceipt transactionReceipt;
         if (address==null||address.equals("")){
             transactionReceipt = patient.updatePatient(doctorInfo.name,doctorInfo.sex,doctorInfo.sex,doctorInfo.dataBirth);
@@ -37,7 +39,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public Patient.Struct0 query(String addr) throws Exception {
-        Patient patient = commonService.init(Patient.class, ConfigProperties.doctorContract,ConfigProperties.pemAccountFilePath);
+        Patient patient = commonService.init(Patient.class,properties.getPatientContract(),properties.getPemAccountFilePath());
         Patient.Struct0 doctorInfo = patient.queryPatient(addr);
         return doctorInfo;
     }

@@ -19,6 +19,8 @@ import java.util.List;
 public class CasesServiceImpl implements CasesService {
     @Autowired
     private CommonServiceImpl commonService;
+    @Autowired
+    private ConfigProperties properties;
 
     /**
      * 添加病例
@@ -26,7 +28,7 @@ public class CasesServiceImpl implements CasesService {
      * @throws ContractException
      */
     public String addCases(Cases cases) throws Exception {
-        HospitalCases hospitalCases = commonService.init(HospitalCases.class, ConfigProperties.CasesContract,ConfigProperties.pemAccountFilePath);
+        HospitalCases hospitalCases = commonService.init(HospitalCases.class,properties.getCasesContract(),properties.getPemAccountFilePath());
         TransactionReceipt transactionReceipt = hospitalCases.addCases(cases.get_patient(), cases.get_appointmentType(),
                 cases.get_appointmentTime(), cases.get_description(), cases.get_prescription(), cases.get_money());
 
@@ -41,7 +43,7 @@ public class CasesServiceImpl implements CasesService {
 //        return casesDynamicArray;
 //    }
     public List<HospitalCases.Struct2> query(String address) throws Exception {
-        HospitalCases hospitalCases = commonService.init(HospitalCases.class, ConfigProperties.CasesContract,ConfigProperties.pemAccountFilePath);
+        HospitalCases hospitalCases = commonService.init(HospitalCases.class,properties.getCasesContract(),properties.getPemAccountFilePath());
         DynamicArray<HospitalCases.Struct2> list = hospitalCases.queryCases(address);
         List<HospitalCases.Struct2> value = list.getValue();
         return value;

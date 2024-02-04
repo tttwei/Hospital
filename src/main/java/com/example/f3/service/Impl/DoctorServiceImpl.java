@@ -12,10 +12,12 @@ import org.springframework.stereotype.Component;
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private CommonServiceImpl commonService;
+    @Autowired
+    private ConfigProperties properties;
     @Override
     // TODO 判断状态处理
     public String addDoctor(String address, DoctorInfo doctorInfo) throws Exception {
-        Doctor doctor = commonService.init(Doctor.class, ConfigProperties.doctorContract,ConfigProperties.pemAccountFilePath);
+        Doctor doctor = commonService.init(Doctor.class, properties.getDoctorContract(),properties.getPemAccountFilePath());
         TransactionReceipt transactionReceipt;
         if (address==null||address.equals("")){
             transactionReceipt = doctor.addDoctor(doctorInfo.getName(), doctorInfo.getSex(), doctorInfo.getAge(), doctorInfo.getWorkYear());
@@ -27,7 +29,7 @@ public class DoctorServiceImpl implements DoctorService {
         return status;
     }
     public String updateDoctor(String address, DoctorInfo doctorInfo) throws Exception {
-        Doctor doctor = commonService.init(Doctor.class, ConfigProperties.doctorContract,ConfigProperties.pemAccountFilePath);
+        Doctor doctor = commonService.init(Doctor.class, properties.getDoctorContract(),properties.getPemAccountFilePath());
         TransactionReceipt transactionReceipt;
         if (address==null||address.equals("")){
             transactionReceipt = doctor.updateDoctor(doctorInfo.getName(), doctorInfo.getSex(), doctorInfo.getAge(), doctorInfo.getWorkYear());
@@ -37,7 +39,7 @@ public class DoctorServiceImpl implements DoctorService {
         return transactionReceipt.getStatus();
     }
     public Doctor.Struct0 query(String address) throws Exception {
-        Doctor doctor = commonService.init(Doctor.class, ConfigProperties.doctorContract,ConfigProperties.pemAccountFilePath);
+        Doctor doctor = commonService.init(Doctor.class, properties.getDoctorContract(),properties.getPemAccountFilePath());
         Doctor.Struct0 doctorInfo;
         if (address == null||address.equals("")) {
             doctorInfo = doctor.queryDoctor();
@@ -48,7 +50,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     public void del(String addr) throws Exception {
-        Doctor doctor = commonService.init(Doctor.class, ConfigProperties.doctorContract,ConfigProperties.pemAccountFilePath);
+        Doctor doctor = commonService.init(Doctor.class, properties.getDoctorContract(),properties.getPemAccountFilePath());
         doctor.delDoctor(addr);
     }
 
