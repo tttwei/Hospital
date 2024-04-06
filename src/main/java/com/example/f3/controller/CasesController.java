@@ -20,8 +20,8 @@ public class CasesController{
         String s = casesService.addCases(cases);
         return R.success(s);
     }
-    @GetMapping
-    public R<List<HospitalCases.Struct2>> query(String address) throws Exception {
+    @GetMapping("/{address}")
+    public R<List<HospitalCases.Struct2>> query(@PathVariable String address) throws Exception {
         List<HospitalCases.Struct2> list = casesService.query(address);
         return R.success(list);
     }

@@ -6,10 +6,10 @@ import org.fisco.bcos.sdk.transaction.model.exception.ContractException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
-@RestControllerAdvice
+//@RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler
-    public R exception(Exception ex){
+//    @ExceptionHandler
+    public R exception(ContractException ex){
         String message = ex.getMessage();
         log.info("出现异常了:{}",message);
         return R.error(message);

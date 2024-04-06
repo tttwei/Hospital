@@ -16,6 +16,14 @@ public class DoctorController {
     private DoctorService doctorService;
 
 //    @PostMapping("/add/{address}")
+
+    /**
+     *
+     * @param address
+     * @param doctorInfo
+     * @return
+     * @throws Exception
+     */
     @PostMapping({"/add/{address}", "/add"})
     public R add(@PathVariable(required = false) String address,@RequestBody DoctorInfo doctorInfo) throws Exception {
         log.info("{}",doctorInfo);
