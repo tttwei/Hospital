@@ -1,7 +1,7 @@
 package com.example.f3.controller;
 
 import com.example.f3.contract.HospitalCases;
-import com.example.f3.entity.DoctorInfo;
+import com.example.f3.entity.Doctor;
 import com.example.f3.entity.R;
 import com.example.f3.service.DoctorService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,34 +15,25 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-//    @PostMapping("/add/{address}")
-
-    /**
-     *
-     * @param address
-     * @param doctorInfo
-     * @return
-     * @throws Exception
-     */
-    @PostMapping({"/add/{address}", "/add"})
-    public R add(@PathVariable(required = false) String address,@RequestBody DoctorInfo doctorInfo) throws Exception {
-        log.info("{}",doctorInfo);
-        doctorService.addDoctor(address, doctorInfo);
+    @PostMapping("/add")
+    public R add(@RequestBody Doctor doctor) throws Exception {
+//        log.info("{}",doctorInfo);
+        doctorService.addDoctor(doctor);
         return R.success();
     }
-    @PutMapping({"/update/{address}", "/update"})
-    public R update(@PathVariable(required = false) String address,@RequestBody DoctorInfo doctorInfo) throws Exception {
-        doctorService.updateDoctor(address,doctorInfo);
+    @PutMapping( "/update")
+    public R update(@RequestBody Doctor doctor) throws Exception {
+        doctorService.updateDoctor(doctor);
         return R.success();
     }
     @GetMapping
-    public R<HospitalCases.Struct0> query(String address) throws Exception {
-        HospitalCases.Struct0 doctorInfo = doctorService.query(address);
-        return R.success(doctorInfo);
+    public R<HospitalCases.Struct1> query(String address) throws Exception {
+        HospitalCases.Struct1 doctor = doctorService.queryDoctor(address);
+        return R.success(doctor);
     }
-    @DeleteMapping("/{addr}")
-    public R del(@PathVariable String addr) throws Exception {
-        doctorService.del(addr);
+    @DeleteMapping("/{address}")
+    public R del(@PathVariable(required = false) String address) throws Exception {
+        doctorService.delDoctor(address);
         return R.success();
     }
 

@@ -7,19 +7,25 @@ contract Patient is Base {
     
 
     struct PatientInfo{
-        // 姓名
+        //名字
         string name;
-        // 性别
-        uint8 sex;
-        // 年龄
+        //年龄
         uint8 age;
-        //类型 1是医生 2是病人
-        int8 theType;
-        // 出生日期
-        string dataBirth;
+        //性别
+        uint8 gender;
+        //头像
+        string image;
+        //联系方式
+        string contact;
+        //身份证号
+        string identity;//主键
+        //正常0，住院1
+        uint8 status;
+        //出生日期
+        string date;
     }
 
-    mapping (address => PatientInfo) public patientMap;
+    mapping (string => PatientInfo) public patientMap;
     
     
 

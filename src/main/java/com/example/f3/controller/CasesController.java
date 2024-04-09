@@ -1,5 +1,7 @@
 package com.example.f3.controller;
 
+import com.example.f3.DTO.CasesDTO;
+import com.example.f3.VO.CasesVO;
 import com.example.f3.contract.HospitalCases;
 import com.example.f3.entity.Cases;
 import com.example.f3.entity.R;
@@ -16,13 +18,13 @@ public class CasesController{
     @Autowired
     private CasesService casesService;
     @PostMapping("/addCases")
-    public R<String> add(@RequestBody Cases cases) throws Exception {
-        String s = casesService.addCases(cases);
-        return R.success(s);
+    public R<String> add(@RequestBody CasesDTO casesDTO) throws Exception {
+        casesService.addCases(casesDTO);
+        return R.success();
     }
     @GetMapping("/{address}")
-    public R<List<HospitalCases.Struct2>> query(@PathVariable String address) throws Exception {
-        List<HospitalCases.Struct2> list = casesService.query(address);
+    public R<List<CasesVO>> query(@PathVariable String address) throws Exception {
+        List<CasesVO> list = casesService.query(address);
         return R.success(list);
     }
 }

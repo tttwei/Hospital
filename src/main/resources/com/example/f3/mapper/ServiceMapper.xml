@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.f3.mapper.ServiceMapper">
+
+    <select id="queryById" resultType="com.example.f3.entity.Service">
+        select * from service where id = #{id}
+    </select>
+    <select id="list" resultType="com.example.f3.entity.Service">
+        select * from Service order by id desc
+    </select>
+    <insert id="add">
+        insert into service (name,money,serviceDescription) values (#{name},#{money},#{serviceDescription})
+    </insert>
+    <update id="updateById">
+        update service
+            <set>
+                <if test="name!=null and name!=''">name=#{name},</if>
+                <if test="money!=null">money=#{money},</if>
+                <if test="serviceDescription!=null and serviceDescription!=''">
+                    serviceDescription=#{serviceDescription},
+                </if>
+            </set>
+        where id = #{id}
+    </update>
+    <delete id="delById">
+        delete from service where id = #{id}
+    </delete>
+</mapper>

@@ -1,55 +1,67 @@
 package com.example.f3.service.Impl;
 
 import com.example.f3.contract.HospitalCases;
-import com.example.f3.entity.DoctorInfo;
+import com.example.f3.entity.Doctor;
 import com.example.f3.service.DoctorService;
-import org.fisco.bcos.sdk.model.TransactionReceipt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.math.BigInteger;
 
 @Component
 public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private CommonServiceImpl commonService;
+
     @Override
-    // TODO 判断状态处理
-    public String addDoctor(String address, DoctorInfo doctorInfo) throws Exception {
+    public void addDoctor(Doctor doctor) throws Exception {
         HospitalCases hospitalCases = commonService.init();
-        TransactionReceipt transactionReceipt;
-        if (address==null||address.equals("")){
-            transactionReceipt = hospitalCases.addDoctor(doctorInfo.getName(), doctorInfo.getSex(), doctorInfo.getAge(), doctorInfo.getWorkYear());
+        if (isNull(doctor.getAddress())){
+            hospitalCases.addDoctor(doctor.getName(),BigInteger.valueOf(doctor.getAge()),BigInteger.valueOf(doctor.getGender()),
+                    doctor.getImage(),doctor.getContact(),doctor.getHospital(),BigInteger.valueOf(doctor.getDepartment()));
         }else {
-            transactionReceipt = hospitalCases.addDoctor(address,doctorInfo.getName(), doctorInfo.getSex(), doctorInfo.getAge(), doctorInfo.getWorkYear());
+            hospitalCases.addDoctor(doctor.getAddress(),doctor.getName(),BigInteger.valueOf(doctor.getAge()),
+                    BigInteger.valueOf(doctor.getGender()), doctor.getImage(),doctor.getContact(),doctor.getHospital(),BigInteger.valueOf(doctor.getDepartment()));
         }
-        String status = transactionReceipt.getStatus();
-
-        return status;
-    }
-    public String updateDoctor(String address, DoctorInfo doctorInfo) throws Exception {
-        HospitalCases hospitalCases = commonService.init();
-        TransactionReceipt transactionReceipt;
-        if (address==null||address.equals("")){
-            transactionReceipt = hospitalCases.updateDoctor(doctorInfo.getName(), doctorInfo.getSex(), doctorInfo.getAge(), doctorInfo.getWorkYear());
-        }else {
-            transactionReceipt = hospitalCases.updateDoctor(address,doctorInfo.getName(), doctorInfo.getSex(), doctorInfo.getAge(), doctorInfo.getWorkYear());
-        }
-        return transactionReceipt.getStatus();
-    }
-    public HospitalCases.Struct0 query(String address) throws Exception {
-        HospitalCases hospitalCases = commonService.init();
-        HospitalCases.Struct0 doctorInfo;
-        if (address == null||address.equals("")) {
-            doctorInfo = hospitalCases.queryMySelf();
-        }else {
-            doctorInfo = hospitalCases.queryDoctor(address);
-        }
-        return doctorInfo;
     }
 
-    public void del(String addr) throws Exception {
+    @Override
+    public void updateDoctor(Doctor doctor) throws Exception {
         HospitalCases hospitalCases = commonService.init();
-        hospitalCases.delDoctor(addr);
+        if (isNull(doctor.getAddress())){
+            hospitalCases.updateDoctor(doctor.getName(),BigInteger.valueOf(doctor.getAge()),BigInteger.valueOf(doctor.getGender()),
+                    doctor.getImage(),doctor.getContact(),doctor.getHospital(),BigInteger.valueOf(doctor.getDepartment()));
+        }else {
+            hospitalCases.updateDoctor(doctor.getAddress(),doctor.getName(),BigInteger.valueOf(doctor.getAge()),
+                    BigInteger.valueOf(doctor.getGender()), doctor.getImage(),doctor.getContact(),doctor.getHospital(),BigInteger.valueOf(doctor.getDepartment()));
+        }
     }
+    @Override
+    public HospitalCases.Struct1 queryDoctor(String address) throws Exception {
+        HospitalCases hospitalCases = commonService.init();
+        HospitalCases.Struct1 doctor;
+        if (isNull(address)) {
+            doctor = hospitalCases.queryMySelf();
+        }else {
+            doctor = hospitalCases.queryDoctor(address);
+        }
+        return doctor;
+    }
+    @Override
+    public void delDoctor(String address) throws Exception {
+        HospitalCases hospitalCases = commonService.init();
+        if (isNull(address)){
+            hospitalCases.delDoctor();
+        }else {
+            hospitalCases.delDoctor(address);
+        }
+    }
+
+    public boolean isNull(String str){
+        return str==null || str.isEmpty() ? true : false;
+    }
+
+
 
 
 //    public DoctorInfo query(String addr) throws ContractException {

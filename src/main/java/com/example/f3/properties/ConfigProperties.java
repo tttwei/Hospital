@@ -12,6 +12,4 @@ public class ConfigProperties {
     private String peers;
     private String SDKFile;
     private String pemAccountFilePath;
-
-
 }
