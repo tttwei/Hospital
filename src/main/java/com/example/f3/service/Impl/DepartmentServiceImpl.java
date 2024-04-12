@@ -1,8 +1,12 @@
 package com.example.f3.service.Impl;
 
+import com.example.f3.DTO.PageDTO;
 import com.example.f3.entity.Department;
+import com.example.f3.entity.PageResult;
 import com.example.f3.mapper.DepartmentMapper;
 import com.example.f3.service.DepartmentService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,8 +38,13 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> list() {
-        List<Department> l = departmentMapper.list();
-        return l;
+    public PageResult list(PageDTO pageDTO) {
+        PageHelper.startPage(pageDTO.getPage(), pageDTO.getPageSize());
+        Page<Department> page = departmentMapper.list(pageDTO);
+
+        long total = page.getTotal();
+        List<Department> list = page.getResult();
+
+        return new PageResult(total,list);
     }
 }

@@ -1,6 +1,9 @@
 package com.example.f3.mapper;
 
+import com.example.f3.DTO.PageDTO;
+import com.example.f3.entity.PageResult;
 import com.example.f3.entity.Service;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -16,5 +19,5 @@ public interface ServiceMapper {
 
     void delById(Integer id);
 
-    List<Service> list();
+    Page<Service> list(PageDTO pageDTO);
 }

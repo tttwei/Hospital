@@ -1,5 +1,7 @@
 package com.example.f3.service;
 
+import com.example.f3.DTO.PageDTO;
+import com.example.f3.entity.PageResult;
 import com.example.f3.entity.Pills;
 import com.example.f3.entity.Service;
 
@@ -11,5 +13,5 @@ public interface ServiceService {
     void add(Service service);
     void updateById(Service service);
     void delById(Integer id);
-    List<Service> list();
+    PageResult list(PageDTO pageDTO);
 }

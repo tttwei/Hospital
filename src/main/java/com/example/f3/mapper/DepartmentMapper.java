@@ -1,6 +1,8 @@
 package com.example.f3.mapper;
 
+import com.example.f3.DTO.PageDTO;
 import com.example.f3.entity.Department;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -20,5 +22,5 @@ public interface DepartmentMapper {
     @Delete("delete from department where id = #{id}")
     void delById(Integer id);
 
-    List<Department> list();
+    Page<Department> list(PageDTO pageDTO);
 }

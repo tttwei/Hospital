@@ -1,6 +1,8 @@
 package com.example.f3.mapper;
 
+import com.example.f3.DTO.PageDTO;
 import com.example.f3.entity.Pills;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,5 +18,5 @@ public interface PillsMapper {
 
     void delById(Integer id);
 
-    List<Pills> list();
+    Page<Pills> list(PageDTO pageDTO);
 }

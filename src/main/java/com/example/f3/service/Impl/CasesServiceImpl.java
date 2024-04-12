@@ -78,7 +78,7 @@ public class CasesServiceImpl implements CasesService {
         DynamicArray<HospitalCases.Struct0> list = hospitalCases.queryCases(address);
         List<HospitalCases.Struct0> value = list.getValue();
 
-        if (value.size()==0) return null;
+        if (value.isEmpty()) return null;
 
         String patientId = value.get(0).patientId;
         String doctorId = value.get(0).doctorId;

@@ -1,6 +1,8 @@
 package com.example.f3.service;
 
+import com.example.f3.DTO.PageDTO;
 import com.example.f3.entity.Department;
+import com.example.f3.entity.PageResult;
 
 import java.util.List;
 
@@ -10,5 +12,5 @@ public interface DepartmentService {
     void updateById(Department department);
     void delById(Integer id);
 
-    List<Department> list();
+    PageResult list(PageDTO pageDTO);
 }

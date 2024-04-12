@@ -17,7 +17,7 @@ public class ContractUtil {
      * @param bcosSDK
      * @return ClientAndKeyPair
      */
-    private static ClientAndKeyPair clientInit(BcosSDK bcosSDK,String pemAccountFilePath) {
+    public static ClientAndKeyPair clientInit(BcosSDK bcosSDK,String pemAccountFilePath) {
         Client client = bcosSDK.getClient(1);
 
         // 从pemAccountFilePath指定路径加载pem账户文件，并将其设置为交易发送账户
@@ -25,6 +25,7 @@ public class ContractUtil {
         CryptoSuite cryptoSuite = client.getCryptoSuite();
 
         cryptoSuite.loadAccount("pem", pemAccountFilePath, null);
+
         CryptoKeyPair cryptoKeyPair = cryptoSuite.getCryptoKeyPair();
 
         log.info("客户端初始化完成：{}，调用者地址信息：{}", client, cryptoKeyPair.getAddress());
@@ -41,7 +42,7 @@ public class ContractUtil {
     public static <T> T contractLoad(BcosSDK bcosSDK, String address, String pemAccountFilePath ,Class<T> contractClass) throws Exception {
         ClientAndKeyPair clientAndKeyPair = clientInit(bcosSDK,pemAccountFilePath);
         T contract;
-        if (address.length() == 0 || address == null) {
+        if (address.isEmpty()) {
             // 使用反射调用指定类的 deploy() 静态方法
             Method deployMethod = contractClass.getMethod("deploy", Client.class, CryptoKeyPair.class);
             // invoke方法的第一个参数是一个对象（实例），表示实例调用，静态方法省略

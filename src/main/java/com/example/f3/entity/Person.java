@@ -1,9 +1,15 @@
 package com.example.f3.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 @Data
-public class Person {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Person implements Serializable {
     //名字
     private String name;
     //年龄

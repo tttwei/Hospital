@@ -7,7 +7,13 @@
         select * from pills where id = #{id}
     </select>
     <select id="list" resultType="com.example.f3.entity.Pills">
-        select * from pills order by id desc
+        select * from pills
+        <where>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by id desc
     </select>
 
     <update id="updateById">

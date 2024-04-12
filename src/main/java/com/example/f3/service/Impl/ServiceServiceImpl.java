@@ -1,7 +1,12 @@
 package com.example.f3.service.Impl;
 
+import com.example.f3.DTO.PageDTO;
+import com.example.f3.entity.PageResult;
+import com.example.f3.entity.Pills;
 import com.example.f3.mapper.ServiceMapper;
 import com.example.f3.service.ServiceService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +38,15 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<com.example.f3.entity.Service> list() {
-        return serviceMapper.list();
+    public PageResult list(PageDTO pageDTO) {
+        PageHelper.startPage(pageDTO.getPage(), pageDTO.getPageSize());
+        Page<com.example.f3.entity.Service> page = serviceMapper.list(pageDTO);
+
+        long total = page.getTotal();
+        List<com.example.f3.entity.Service> list = page.getResult();
+
+        return new PageResult(total,list);
     }
+
+
 }

@@ -8,7 +8,13 @@
         select * from service where id = #{id}
     </select>
     <select id="list" resultType="com.example.f3.entity.Service">
-        select * from Service order by id desc
+        select * from Service
+        <where>
+            <if test="name!=null and name!=''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by id desc
     </select>
     <insert id="add">
         insert into service (name,money,serviceDescription) values (#{name},#{money},#{serviceDescription})
